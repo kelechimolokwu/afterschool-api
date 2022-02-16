@@ -1,0 +1,34 @@
+{
+  "name": "cw2-backend",
+  "version": "1.0.0",
+  "description": "Individual Courseowrk 2",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kelechimolokwu/cw2-backend.git"
+  },
+  "keywords": [
+    "Mongo",
+    "Cors",
+    "Express",
+    "REST",
+    "API"
+  ],
+  "author": "Kelechi Mo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kelechimolokwu/cw2-backend/issues"
+  },
+  "homepage": "https://github.com/kelechimolokwu/cw2-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "mongodb": "^4.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
