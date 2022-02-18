@@ -99,13 +99,20 @@ app.put('/collection/:collectionName/:id', (req, res, next) => {
 
 // Perform text search
 // GET request for search
-app.get('/collection/:collectionName/:query', (req, res, next) => {
+// app.get('/collection/:collectionName/:query', (req, res, next) => {
 
-    // passing the query as a parameter
-    const query = {"$or": [
-        {'subject': {'$regex': req.params.query, '$options': 'i'}},
-        {'location': {'$regex': req.params.query, '$options': 'i'}}
-]};
+//     // passing the query as a parameter
+//     const query = {"$or": [
+//         {'subject': {'$regex': req.params.query, '$options': 'i'}},
+//         {'location': {'$regex': req.params.query, '$options': 'i'}}
+// ]};
+app.get('/search/:collectionName', async function (req, res, next) {
+    await req.collection.find({ $text: { $search: req.query.query }  })
+    .toArray((err, results) => {
+      res.json(results)
+      if (err) return next(err)
+    })
+  })
 
 // displaying results
 // Hello World
