@@ -108,6 +108,7 @@ app.get('/collection/:collectionName/:query', (req, res, next) => {
 ]};
 
 // displaying results
+// Hello World
 req.collection.find(query).toArray((e, results) => {
     if (e) return next(e)
     res.send(results)
