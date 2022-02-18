@@ -57,12 +57,19 @@ app.param('collectionName', (req, res, next, collectionName) => {
 });
 
 // Get Lessons
-app.get('/collection/:collectionName', (req, res, next) => {
-    req.collection.find({}).toArray((e, results) => {
-        if (e) return next(e)
-        res.send(results)
+// app.get('/collection/:collectionName', (req, res, next) => {
+//     req.collection.find({}).toArray((e, results) => {
+//         if (e) return next(e)
+//         res.send(results)
+//     })
+// });
+
+app.get('/collection/:collectionName', async function (req, res, next) {
+    await req.collection.find().toArray((e, results) => {
+      if (e) return next(e)
+      res.json(results)
     })
-});
+  });
 
 // retrieve an object by mongodb ID
 app.get('/collection/:collectionName/:id', (req, res, next) => {
