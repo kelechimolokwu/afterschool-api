@@ -78,7 +78,8 @@ app.get('/collection/:collectionName/:id', (req, res, next) => {
         (e, result) => {
             if (e) return next(e)
             res.send(result)
-}) })
+        }) 
+})
 
 // Insert JSON Object to MongoDB - Add an Order
 app.post('/collection/:collectionName', (req, res, next) => {
