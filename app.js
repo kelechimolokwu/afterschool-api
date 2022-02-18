@@ -115,10 +115,10 @@ app.get('/search/:collectionName', async function (req, res, next) {
   })
 
 // displaying results
-// req.collection.find(query).toArray((e, results) => {
-//     if (e) return next(e)
-//     res.send(results)
-// })
+req.collection.find(query).toArray((e, results) => {
+    if (e) return next(e)
+    res.send(results)
+})
 
 
 // Wrong route 404 error page
