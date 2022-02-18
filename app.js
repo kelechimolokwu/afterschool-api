@@ -32,3 +32,27 @@ app.use(function (req, res, next) {
     })
   })
 
+//Connect to MongoDB
+const {MongoClient} = require("mongodb");
+const ObjectID = require('mongodb').ObjectID;
+const uri = "mongodb+srv://kelechimo:Vwe5bTTIpT7JXlYW@coursework-cst3145.0c0vq.mongodb.net/afterschool?retryWrites=true&w=majority";
+let db;
+MongoClient.connect(uri, (err, client) => {
+    if(!err){
+        db = client.db('afterschool');
+    }else{
+        console.log(err);
+    }
+});
+
+// Parameters middleware
+app.param('collectionName', (req, res, next, collectionName) => {
+    req.collection = db.collection(collectionName);
+    return next()
+});
+
+// Root Request Middleware
+  app.get('/', (req, res, next) => {
+    res.send('Select a collection, e.g., /collection/messages');
+});
+
