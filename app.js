@@ -113,6 +113,7 @@ app.put('/collection/:collectionName/:id', (req, res, next) => {
 //         {'subject': {'$regex': req.params.query, '$options': 'i'}},
 //         {'location': {'$regex': req.params.query, '$options': 'i'}}
 // ]};
+
 app.get('/search/:collectionName', async function (req, res, next) {
     await req.collection.find({ $text: { $search: req.query.query }  })
     .toArray((err, results) => {
@@ -121,11 +122,11 @@ app.get('/search/:collectionName', async function (req, res, next) {
     })
   })
 
-// displaying results
-req.collection.find(query).toArray((e, results) => {
-    if (e) return next(e)
-    res.send(results)
-})
+// // displaying results
+// req.collection.find(query).toArray((e, results) => {
+//     if (e) return next(e)
+//     res.send(results)
+// })
 
 
 // Wrong route 404 error page
