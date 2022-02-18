@@ -56,3 +56,27 @@ app.param('collectionName', (req, res, next, collectionName) => {
     res.send('Select a collection, e.g., /collection/messages');
 });
 
+// Get Lessons
+app.get('/collection/:collectionName', (req, res, next) => {
+    req.collection.find({}).toArray((e, results) => {
+        if (e) return next(e)
+        res.send(results)
+    })
+});
+
+// retrieve an object by mongodb ID
+app.get('/collection/:collectionName/:id', (req, res, next) => {
+    req.collection.findOne(
+        { _id: new ObjectID(req.params.id) },
+        (e, result) => {
+            if (e) return next(e)
+            res.send(result)
+}) })
+
+
+
+
+// Listen to port
+app.listen(port, function () {
+    console.log(`Server running at http://localhost:${port}`);
+});
