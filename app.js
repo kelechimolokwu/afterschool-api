@@ -120,7 +120,7 @@ req.collection.find(query).toArray((e, results) => {
     if (e) return next(e)
     res.send(results)
 })
-});
+
 
 // Wrong route 404 error page
 app.use(function (req, res) {
