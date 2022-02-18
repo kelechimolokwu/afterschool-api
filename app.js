@@ -73,8 +73,54 @@ app.get('/collection/:collectionName/:id', (req, res, next) => {
             res.send(result)
 }) })
 
+// Insert JSON Object to MongoDB - Add an Order
+app.post('/collection/:collectionName', (req, res, next) => {
+    req.collection.insertOne(req.body, (e, results) => {
+        if (e) return next(e);
+        console.log(results);
+        res.json(results)
+    })
+})
+
+// Update lesson by ID
+app.put('/collection/:collectionName/:id', (req, res, next) => {
+    req.collection.updateOne(
+        { _id: new ObjectID(req.params.id) },
+        { $set: req.body },
+        { safe: true, multi: false },
+        (e, result) => {
+            console.log(result)
+            if (e) return next(e)
+            res.send((result.modifiedCount === 1) ? 
+                { msg: 'success' } : { msg: 'error' })
+        })
+})
 
 
+// Perform text search
+// GET request for search
+app.get('/collection/:collectionName/:query', (req, res, next) => {
+
+    // passing the query as a parameter
+    const query = {"$or": [
+        {'subject': {'$regex': req.params.query, '$options': 'i'}},
+        {'location': {'$regex': req.params.query, '$options': 'i'}}
+]};
+
+// displaying results
+req.collection.find(query).toArray((e, results) => {
+    if (e) return next(e)
+    res.send(results)
+})
+});
+
+// Wrong route 404 error page
+app.use(function (req, res) {
+    // Sets the status code to 404
+    res.status(404);
+    // Sends the error "File not found!”
+    res.send("File not found!");
+});
 
 // Listen to port
 app.listen(port, function () {
